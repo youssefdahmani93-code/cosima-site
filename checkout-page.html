@@ -725,6 +725,36 @@ document.addEventListener('DOMContentLoaded', function() {
   const placeOrderBtn = document.getElementById('place-order-btn');
   const orderMessage = document.getElementById('order-message');
 
+  // Check if a product was selected from the catalog page
+  const selectedProductStr = sessionStorage.getItem('last_ordered_product');
+  let selectedSku = 'ORD-' + Date.now();
+  
+  if (selectedProductStr) {
+    try {
+      const product = JSON.parse(selectedProductStr);
+      selectedSku = product.sku || selectedSku;
+      
+      // Update DOM elements in Order Summary
+      const tbImg = document.querySelector('.tb-img');
+      if (tbImg) tbImg.src = product.imageUrl || 'https://placehold.co/80x80';
+      
+      const tbHeading = document.querySelector('.tb-heading');
+      if (tbHeading) tbHeading.textContent = product.name;
+      
+      const tbPrices = document.querySelectorAll('.tb-price');
+      tbPrices.forEach(el => {
+        el.textContent = '£' + parseFloat(product.price).toFixed(2);
+      });
+      
+      const totalHeader = document.querySelector('strong.Hprice');
+      if (totalHeader) {
+        totalHeader.textContent = '£' + parseFloat(product.price).toFixed(2);
+      }
+    } catch (e) {
+      console.error('Error loading selected product:', e);
+    }
+  }
+
   if (placeOrderBtn) {
     placeOrderBtn.addEventListener('click', async function(e) {
       e.preventDefault();
@@ -765,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            sku: 'ORD-' + Date.now(),
+            sku: selectedSku,
             product_name: productName,
             price: parseFloat(productPrice),
             quantity: parseInt(productQty),
@@ -786,6 +816,7 @@ document.addEventListener('DOMContentLoaded', function() {
           );
           // Reset form
           document.querySelector('.ChForm')?.reset();
+          sessionStorage.removeItem('last_ordered_product');
         } else {
           showMessage('<i class="fa-solid fa-circle-xmark me-2"></i> ' + (data.error || 'Failed to place order. Please try again.'), 'danger');
         }
