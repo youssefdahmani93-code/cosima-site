@@ -1,0 +1,83 @@
+/* Custom Branding Overrides for Cosima (Gold & Dark Aesthetic) */
+
+:root {
+  --primary-gold: #c5a059;
+  --primary-gold-hover: #d4b475;
+  --dark-bg: #121212;
+  --dark-section: #1a1a1a;
+  --light-gold: #f4eee1;
+}
+
+/* Override primary theme colors to Gold */
+.btnTheme, 
+.btnThemeOutlined:hover, 
+#pageHeader .phWrapper .phActionsList .phCartBubble, 
+.slick-dots .slick-active button, 
+.slick-dots button:hover, 
+.blgTag,
+.pagination .active > .page-link:not(.disabled) {
+  background-color: var(--primary-gold) !important;
+  border-color: var(--primary-gold) !important;
+  color: #ffffff !important;
+}
+
+.btnThemeOutlined {
+  border-color: var(--primary-gold) !important;
+  color: var(--primary-gold) !important;
+}
+
+.btnThemeOutlined:hover {
+  background-color: var(--primary-gold) !important;
+  color: #ffffff !important;
+}
+
+/* Text and Links color override */
+a:hover, 
+#mainNavigation .nav-link:hover, 
+#mainNavigation .nav-link.active,
+.productColumn .pcHeading a:hover,
+.ctHeading:hover,
+.footerAside .ftColsWrap .ftLinksList a:hover,
+.bioContact a:hover {
+  color: var(--primary-gold) !important;
+}
+
+/* Product catalog buttons and tags */
+.productColumn .pcBtnSubmit, 
+.exploreColumn .pcBtnSubmit {
+  color: var(--primary-gold) !important;
+}
+
+.productColumn .pcBtnSubmit:hover, 
+.exploreColumn .pcBtnSubmit:hover {
+  background-color: var(--primary-gold) !important;
+  color: #ffffff !important;
+}
+
+/* Adjust active dot indicator color */
+.slick-dots .slick-active button {
+  background-color: var(--primary-gold) !important;
+}
+
+/* Header style adjustments for logo */
+#pageHeader .logo img {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Navigation link active styling */
+#mainNavigation .nav-link.active::after {
+  background-color: var(--primary-gold) !important;
+}
+
+/* Form controls focus border */
+.form-control:focus {
+  border-color: var(--primary-gold) !important;
+  box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.25) !important;
+}
+
+/* Customize intro Block background */
+.introBlock {
+  background-color: #0b0b0b !important;
+}
