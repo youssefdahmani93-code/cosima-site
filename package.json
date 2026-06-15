@@ -1,0 +1,15 @@
+{
+  "name": "cosima-site",
+  "version": "1.0.0",
+  "description": "Cosima Jewelry Store - Online Shop",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build step needed'",
+    "init-db": "node scripts/init-db.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1",
+    "google-spreadsheet": "^4.1.4",
+    "google-auth-library": "^9.14.2"
+  }
+}
