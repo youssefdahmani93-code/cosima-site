@@ -6,7 +6,7 @@ const fallbackProducts = [
     sku: 'JEW-001',
     name: 'Gold Diamond Ring (Fallback)',
     price: 299.99,
-    image_url: 'https://placehold.co/305x305',
+    image_url: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=305&h=305&fit=crop&q=80',
     category: 'Rings',
     description: 'Beautiful 18k gold diamond ring'
   },
@@ -14,7 +14,7 @@ const fallbackProducts = [
     sku: 'JEW-002',
     name: 'Silver Necklace (Fallback)',
     price: 149.99,
-    image_url: 'https://placehold.co/305x305',
+    image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=305&h=305&fit=crop&q=80',
     category: 'Necklaces',
     description: 'Elegant sterling silver necklace'
   },
@@ -22,7 +22,7 @@ const fallbackProducts = [
     sku: 'JEW-003',
     name: 'Pearl Earrings (Fallback)',
     price: 89.99,
-    image_url: 'https://placehold.co/305x305',
+    image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=305&h=305&fit=crop&q=80',
     category: 'Earrings',
     description: 'Classic freshwater pearl earrings'
   },
@@ -30,7 +30,7 @@ const fallbackProducts = [
     sku: 'JEW-004',
     name: 'Rose Gold Bracelet (Fallback)',
     price: 199.99,
-    image_url: 'https://placehold.co/305x305',
+    image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=305&h=305&fit=crop&q=80',
     category: 'Bracelets',
     description: 'Stunning rose gold bracelet'
   }
