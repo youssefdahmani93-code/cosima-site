@@ -29,7 +29,8 @@ const filesToCopy = [
   { src: path.join(prevSessionDir, 'cat_wellbeing_1781518624920.png'), dest: 'cat-wellbeing.png' },
   { src: path.join(currSessionDir, 'skincare_banner_1781519629497.png'), dest: 'skincare-banner.png' },
   { src: path.join(currSessionDir, 'perfume_banner_1781519645309.png'), dest: 'perfume-banner.png' },
-  { src: path.join(currSessionDir, 'aroma_banner_1781519661041.png'), dest: 'aroma-banner.png' }
+  { src: path.join(currSessionDir, 'aroma_banner_1781519661041.png'), dest: 'aroma-banner.png' },
+  { src: path.join(currSessionDir, 'newsletter_banner_1781519727660.png'), dest: 'newsletter-banner.png' }
 ];
 
 console.log('--- Step 1: Copying Category and Banner Images ---');
