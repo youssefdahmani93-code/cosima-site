@@ -101,12 +101,12 @@ if (!process.env.DATABASE_URL) {
       await client.query(`
         INSERT INTO products (sku, name, price, image_url, category, description)
         VALUES 
-          ('JEW-001', 'Gold Diamond Ring', 299.99, 'images/img-01.jpg', 'Rings', 'Beautiful 18k gold diamond ring'),
-          ('JEW-002', 'Silver Necklace', 149.99, 'images/img-02.jpg', 'Necklaces', 'Elegant sterling silver necklace'),
-          ('JEW-003', 'Pearl Earrings', 89.99, 'images/img-03.jpg', 'Earrings', 'Classic freshwater pearl earrings'),
-          ('JEW-004', 'Rose Gold Bracelet', 199.99, 'images/img-04.jpg', 'Bracelets', 'Stunning rose gold bracelet'),
-          ('JEW-005', 'Diamond Pendant', 349.99, 'images/img-05.jpg', 'Necklaces', 'Brilliant cut diamond pendant'),
-          ('JEW-006', 'Gold Chain', 179.99, 'images/img-06.jpg', 'Necklaces', 'Italian gold chain 22 inches')
+          ('SKN-001', 'Hyaluronic Acid Serum', 49.99, 'images/hero-beauty.png', 'Skincare', 'Premium hydrating serum for radiant skin'),
+          ('VIT-001', 'Organic Multivitamins', 29.99, 'images/hero-health.png', 'Vitamins & Supplements', 'Daily essential vitamins from organic sources'),
+          ('FRG-001', 'Oud Imperial Eau de Parfum', 120.00, 'images/hero-elegance.png', 'Luxury Fragrances', 'Sophisticated oud-based luxury fragrance'),
+          ('JEW-001', 'Gold Diamond Ring', 299.99, 'images/logo.png', 'Timepieces & Jewelry', 'Beautiful 18k gold diamond ring'),
+          ('COS-001', 'Matte Liquid Lipstick', 19.99, 'images/cat-beauty.png', 'Cosmetics & Makeup', 'Long-lasting matte liquid lipstick'),
+          ('SPA-001', 'Scented Candle & Diffuser Set', 35.00, 'images/cat-wellbeing.png', 'Home Spa & Aroma', 'Soothing lavender scented candle and reed diffuser')
         ON CONFLICT (sku) DO NOTHING;
       `);
 
