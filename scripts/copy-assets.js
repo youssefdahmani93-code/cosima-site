@@ -8,7 +8,10 @@ const filesToCopy = [
   { src: 'media__1781518143790.png', dest: 'logo.png' },
   { src: 'hero_beauty_1781518251252.png', dest: 'hero-beauty.png' },
   { src: 'hero_health_1781518264872.png', dest: 'hero-health.png' },
-  { src: 'hero_elegance_1781518279102.png', dest: 'hero-elegance.png' }
+  { src: 'hero_elegance_1781518279102.png', dest: 'hero-elegance.png' },
+  { src: 'cat_accessories_1781518602597.png', dest: 'cat-accessories.png' },
+  { src: 'cat_beauty_1781518614472.png', dest: 'cat-beauty.png' },
+  { src: 'cat_wellbeing_1781518624920.png', dest: 'cat-wellbeing.png' }
 ];
 
 // Ensure destination directory exists
