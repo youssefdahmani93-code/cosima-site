@@ -19,30 +19,31 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-const srcDir = 'C:\\Users\\YOUSSEF\\.gemini\\antigravity\\brain\\c79f63eb-108b-4bd3-b812-e22b1c34f1fc';
+const prevSessionDir = 'C:\\Users\\YOUSSEF\\.gemini\\antigravity\\brain\\c79f63eb-108b-4bd3-b812-e22b1c34f1fc';
+const currSessionDir = 'C:\\Users\\YOUSSEF\\.gemini\\antigravity\\brain\\dd0521c2-293f-4bc9-aa58-efa6e94541f7';
 const destDir = path.join(__dirname, '../images');
 
-const categoryFiles = [
-  { src: 'cat_accessories_1781518602597.png', dest: 'cat-accessories.png' },
-  { src: 'cat_beauty_1781518614472.png', dest: 'cat-beauty.png' },
-  { src: 'cat_wellbeing_1781518624920.png', dest: 'cat-wellbeing.png' }
+const filesToCopy = [
+  { src: path.join(prevSessionDir, 'cat_accessories_1781518602597.png'), dest: 'cat-accessories.png' },
+  { src: path.join(prevSessionDir, 'cat_beauty_1781518614472.png'), dest: 'cat-beauty.png' },
+  { src: path.join(prevSessionDir, 'cat_wellbeing_1781518624920.png'), dest: 'cat-wellbeing.png' },
+  { src: path.join(currSessionDir, 'skincare_banner_1781519629497.png'), dest: 'skincare-banner.png' },
+  { src: path.join(currSessionDir, 'perfume_banner_1781519645309.png'), dest: 'perfume-banner.png' },
+  { src: path.join(currSessionDir, 'aroma_banner_1781519661041.png'), dest: 'aroma-banner.png' }
 ];
 
-console.log('--- Step 1: Copying Category Images ---');
+console.log('--- Step 1: Copying Category and Banner Images ---');
 // Ensure destination directory exists
 if (!fs.existsSync(destDir)) {
   fs.mkdirSync(destDir, { recursive: true });
 }
 
-categoryFiles.forEach(file => {
-  const srcPath = path.join(srcDir, file.src);
-  const destPath = path.join(destDir, file.dest);
-  
-  if (fs.existsSync(srcPath)) {
-    fs.copyFileSync(srcPath, destPath);
-    console.log(`✅ Copied ${file.src} -> ${file.dest}`);
+filesToCopy.forEach(file => {
+  if (fs.existsSync(file.src)) {
+    fs.copyFileSync(file.src, path.join(destDir, file.dest));
+    console.log(`✅ Copied ${path.basename(file.src)} -> ${file.dest}`);
   } else {
-    console.error(`❌ Source file not found: ${srcPath}`);
+    console.error(`❌ Source file not found: ${file.src}`);
   }
 });
 
