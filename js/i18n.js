@@ -609,7 +609,10 @@
     "SHOP MORE": "تسوق المزيد",
     "Signature Perfumes": "عطورنا المميزة",
     "Home Spa & Wellness": "منتجات السبا والصحة المنزلية",
-    "Aromatic Candles": "شموع عطرية"
+    "Aromatic Candles": "شموع عطرية",
+
+    // ── Browse Categories Dropdown ────────────────────────────────────────────────
+    "New Products": "منتجات جديدة"
   };
 
   // Translate a node recursively
