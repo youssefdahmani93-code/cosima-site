@@ -259,6 +259,30 @@
     });
   }
 
+  // Setup header currency dropdown click listeners
+  function setupHeaderCurrencyListeners() {
+    const currencyItems = document.querySelectorAll('.phtbCurrencyDropdown .dropdown-item');
+    currencyItems.forEach(item => {
+      item.addEventListener('click', async function(e) {
+        e.preventDefault();
+        const currencyCode = item.textContent.trim().toUpperCase();
+        
+        // Map currency to a country code for the API
+        const currencyToCountry = {
+          'USD': 'US',
+          'AED': 'AE',
+          'SAR': 'SA',
+          'QAR': 'QA',
+          'KWD': 'KW',
+          'BHD': 'BH',
+          'OMR': 'OM'
+        };
+        const countryCode = currencyToCountry[currencyCode] || 'US';
+        await updateCurrencyForCountry(countryCode);
+      });
+    });
+  }
+
   // Initialize
   async function init() {
     const urlCountry = getQueryParam('country');
@@ -280,6 +304,7 @@
     window.convertAllPrices();
     syncCountryDropdowns();
     setupCountrySelectListeners();
+    setupHeaderCurrencyListeners();
     
     // Fetch fresh config in background
     fetchConfig().then(freshConfig => {

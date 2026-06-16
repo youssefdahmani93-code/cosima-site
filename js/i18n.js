@@ -612,7 +612,11 @@
     "Aromatic Candles": "شموع عطرية",
 
     // ── Browse Categories Dropdown ────────────────────────────────────────────────
-    "New Products": "منتجات جديدة"
+    "New Products": "منتجات جديدة",
+
+    // ── Top Announcement Bar ──────────────────────────────────────────────────────
+    "Summer Sale 15% off! Shop Now!": "تخفيضات الصيف 15%! تسوق الآن!",
+    "Store Location": "موقع المتجر"
   };
 
   // Translate a node recursively
@@ -714,9 +718,32 @@
     }
   }
 
+  // Setup language dropdown click listeners
+  function setupLanguageDropdownListeners() {
+    // 1. Update button texts to match current language
+    const langButtons = document.querySelectorAll('.phtbLanguageDropdown button');
+    langButtons.forEach(btn => {
+      btn.textContent = lang === 'ar' ? 'Ara' : 'Eng';
+    });
+
+    // 2. Setup click listeners on dropdown items
+    const langItems = document.querySelectorAll('.phtbLanguageDropdown .dropdown-item');
+    langItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const selectedLang = item.getAttribute('data-lang') || (item.textContent.trim().toLowerCase().includes('ara') || item.textContent.trim().includes('عرب') ? 'ar' : 'en');
+        if (selectedLang !== lang) {
+          localStorage.setItem('store_lang', selectedLang);
+          window.location.reload();
+        }
+      });
+    });
+  }
+
   // Initialize Translation
   function initTranslation() {
     injectLanguageSwitcher();
+    setupLanguageDropdownListeners();
 
     if (lang === 'ar') {
       // Translate the entire body
