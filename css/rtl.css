@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
+/* RTL Layout and Typography Overrides */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] body,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] p,
+html[dir="rtl"] span,
+html[dir="rtl"] a,
+html[dir="rtl"] button,
+html[dir="rtl"] input,
+html[dir="rtl"] select,
+html[dir="rtl"] textarea {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+/* Margins & Paddings Overrides */
+html[dir="rtl"] .text-start,
+html[dir="rtl"] .text-md-start,
+html[dir="rtl"] .text-lg-start,
+html[dir="rtl"] .text-xl-start {
+  text-align: right !important;
+}
+
+html[dir="rtl"] .text-end,
+html[dir="rtl"] .text-md-end,
+html[dir="rtl"] .text-lg-end,
+html[dir="rtl"] .text-xl-end {
+  text-align: left !important;
+}
+
+html[dir="rtl"] .float-start {
+  float: right !important;
+}
+
+html[dir="rtl"] .float-end {
+  float: left !important;
+}
+
+/* Margin and Padding start/end fixes if bootstrap isn't natively flipping them */
+html[dir="rtl"] .ms-0 { margin-right: 0 !important; }
+html[dir="rtl"] .ms-1 { margin-right: .25rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-2 { margin-right: .5rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-3 { margin-right: 1rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-4 { margin-right: 1.5rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-5 { margin-right: 3rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-auto { margin-right: auto !important; margin-left: 0 !important; }
+
+html[dir="rtl"] .me-0 { margin-left: 0 !important; }
+html[dir="rtl"] .me-1 { margin-left: .25rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-2 { margin-left: .5rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-3 { margin-left: 1rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-4 { margin-left: 1.5rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-5 { margin-left: 3rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-auto { margin-left: auto !important; margin-right: 0 !important; }
+
+html[dir="rtl"] .ps-0 { padding-right: 0 !important; }
+html[dir="rtl"] .ps-1 { padding-right: .25rem !important; padding-left: 0 !important; }
+html[dir="rtl"] .ps-2 { padding-right: .5rem !important; padding-left: 0 !important; }
+html[dir="rtl"] .ps-3 { padding-right: 1rem !important; padding-left: 0 !important; }
+html[dir="rtl"] .ps-4 { padding-right: 1.5rem !important; padding-left: 0 !important; }
+html[dir="rtl"] .ps-5 { padding-right: 3rem !important; padding-left: 0 !important; }
+
+html[dir="rtl"] .pe-0 { padding-left: 0 !important; }
+html[dir="rtl"] .pe-1 { padding-left: .25rem !important; padding-right: 0 !important; }
+html[dir="rtl"] .pe-2 { padding-left: .5rem !important; padding-right: 0 !important; }
+html[dir="rtl"] .pe-3 { padding-left: 1rem !important; padding-right: 0 !important; }
+html[dir="rtl"] .pe-4 { padding-left: 1.5rem !important; padding-right: 0 !important; }
+html[dir="rtl"] .pe-5 { padding-left: 3rem !important; padding-right: 0 !important; }
+
+/* Custom theme spacing fixes */
+html[dir="rtl"] .mbr {
+  margin-left: 0.5rem !important;
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .phActionsList {
+  justify-content: flex-start !important;
+}
+
+html[dir="rtl"] .phActionsList > li:first-child {
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .phtbListInline {
+  justify-content: flex-start !important;
+}
+
+/* Main Navigation */
+html[dir="rtl"] .navbar-nav {
+  padding-right: 0;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  text-align: right;
+  left: auto !important;
+  right: 0 !important;
+}
+
+/* Slick Slider RTL Support */
+html[dir="rtl"] .slick-slider {
+  direction: ltr !important; /* Keep container LTR so slick math works, but text inside RTL */
+}
+
+html[dir="rtl"] .slick-slide {
+  direction: rtl !important;
+}
+
+html[dir="rtl"] .slick-prev,
+html[dir="rtl"] .slickNext {
+  left: auto !important;
+  right: auto !important;
+}
+
+/* Swap sidebars and offcanvas slide direction */
+html[dir="rtl"] .offcanvas-end {
+  left: 0 !important;
+  right: auto !important;
+  transform: translateX(-100%);
+}
+
+html[dir="rtl"] .offcanvas-end.show {
+  transform: none;
+}
+
+html[dir="rtl"] .offcanvas-start {
+  right: 0 !important;
+  left: auto !important;
+  transform: translateX(100%);
+}
+
+html[dir="rtl"] .offcanvas-start.show {
+  transform: none;
+}
+
+/* Form controls and inputs */
+html[dir="rtl"] .form-control {
+  text-align: right;
+}
+
+html[dir="rtl"] .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+html[dir="rtl"] .input-group > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+}
+
+/* Breadcrumbs */
+html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+  float: right !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0 !important;
+  content: var(--bs-breadcrumb-divider, "/") !important;
+}
+
+html[dir="rtl"] .breadcrumb-item + .breadcrumb-item {
+  padding-right: 0.5rem !important;
+  padding-left: 0 !important;
+}
+
+/* Footer layout */
+html[dir="rtl"] footer .footerColumn {
+  text-align: right !important;
+}
+
+html[dir="rtl"] .fSocialNetworks {
+  justify-content: flex-start !important;
+}
+
+/* Fix product ratings */
+html[dir="rtl"] .starRating {
+  direction: ltr;
+  display: inline-flex;
+}
