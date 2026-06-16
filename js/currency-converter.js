@@ -5,6 +5,7 @@
 
   // State
   let config = null;
+  let observer = null;
 
   // Get query parameter by name
   function getQueryParam(name) {
@@ -91,43 +92,63 @@
   window.convertAllPrices = function() {
     if (!config) return;
     
-    // 1. Convert elements with explicit data-price-usd
-    const explicitElements = document.querySelectorAll('[data-price-usd]');
-    explicitElements.forEach(el => {
-      const usdVal = parseFloat(el.getAttribute('data-price-usd'));
-      if (!isNaN(usdVal)) {
-        el.textContent = window.formatPrice(usdVal);
-      }
-    });
-
-    // 2. Auto-detect and parse prices from known classes if they don't have data-price-usd
-    const priceSelectors = '.regPrice, .salePrice, .Hprice, .HDprice, .tb-price, .HPrice, .subheading strong, .cartSide strong';
-    const autoElements = document.querySelectorAll(priceSelectors);
+    // Temporarily disconnect observer to prevent infinite loops from our own DOM changes
+    if (observer) {
+      observer.disconnect();
+    }
     
-    autoElements.forEach(el => {
-      // Skip if already converted explicitly
-      if (el.hasAttribute('data-price-usd')) return;
-      
-      const text = el.textContent.trim();
-      // Check if it contains currency symbols to be safe
-      if (text.includes('£') || text.includes('$') || text.includes('€') || text.includes('SAR') || text.includes('AED')) {
-        // Extract numeric value
-        const match = text.match(/[\d.,]+/);
-        if (match) {
-          const usdVal = parseFloat(match[0].replace(/,/g, ''));
-          if (!isNaN(usdVal)) {
-            el.setAttribute('data-price-usd', usdVal);
-            el.textContent = window.formatPrice(usdVal);
+    try {
+      // 1. Convert elements with explicit data-price-usd
+      const explicitElements = document.querySelectorAll('[data-price-usd]');
+      explicitElements.forEach(el => {
+        const usdVal = parseFloat(el.getAttribute('data-price-usd'));
+        if (!isNaN(usdVal)) {
+          const formatted = window.formatPrice(usdVal);
+          if (el.textContent !== formatted) {
+            el.textContent = formatted;
           }
         }
-      }
-    });
+      });
 
-    // 3. Update any header currency dropdown buttons to display the active currency
-    const currencyButtons = document.querySelectorAll('.phtbCurrencyDropdown button');
-    currencyButtons.forEach(btn => {
-      btn.textContent = config.currency;
-    });
+      // 2. Auto-detect and parse prices from known classes if they don't have data-price-usd
+      const priceSelectors = '.regPrice, .salePrice, .Hprice, .HDprice, .tb-price, .HPrice, .subheading strong, .cartSide strong';
+      const autoElements = document.querySelectorAll(priceSelectors);
+      
+      autoElements.forEach(el => {
+        // Skip if already converted explicitly
+        if (el.hasAttribute('data-price-usd')) return;
+        
+        const text = el.textContent.trim();
+        // Check if it contains currency symbols to be safe
+        if (text.includes('£') || text.includes('$') || text.includes('€') || text.includes('SAR') || text.includes('AED')) {
+          // Extract numeric value
+          const match = text.match(/[\d.,]+/);
+          if (match) {
+            const usdVal = parseFloat(match[0].replace(/,/g, ''));
+            if (!isNaN(usdVal)) {
+              el.setAttribute('data-price-usd', usdVal);
+              const formatted = window.formatPrice(usdVal);
+              if (el.textContent !== formatted) {
+                el.textContent = formatted;
+              }
+            }
+          }
+        }
+      });
+
+      // 3. Update any header currency dropdown buttons to display the active currency
+      const currencyButtons = document.querySelectorAll('.phtbCurrencyDropdown button');
+      currencyButtons.forEach(btn => {
+        if (btn.textContent !== config.currency) {
+          btn.textContent = config.currency;
+        }
+      });
+    } finally {
+      // Re-observe after DOM modifications are finished
+      if (observer) {
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    }
   };
 
   // Find country select dropdowns on the page
@@ -287,7 +308,7 @@
     });
     
     // Setup observer to watch for dynamic DOM additions
-    const observer = new MutationObserver(() => {
+    observer = new MutationObserver(() => {
       window.convertAllPrices();
       setupCountrySelectListeners();
     });
