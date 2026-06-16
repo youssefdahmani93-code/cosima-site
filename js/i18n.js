@@ -194,25 +194,221 @@
     "Cash on Delivery (COD)": "الدفع عند الاستلام",
     "Credit Card (Stripe)": "بطاقة الائتمان (Stripe)",
     "Card Details": "تفاصيل البطاقة",
-    "Place Order": "تأكيد وإتمام الطلب"
+    "Place Order": "تأكيد وإتمام الطلب",
+    
+    // Translations from user feedback & screenshots
+    "Follow Us on Instagram": "تابعنا على إنستغرام",
+    "@cosimapremium": "@cosimapremium",
+    "Support 24/7": "دعم متواصل 24/7",
+    "Contact us Anytime": "اتصل بنا في أي وقت",
+    "Secured Payment": "دفع آمن",
+    "Payment Cards Accepted": "نقبل بطاقات الدفع الآمنة",
+    "For an Exchange Product": "لاستبدال المنتج",
+    "Free Shipping to Arabian Gulf Countries": "شحن مجاني لدول الخليج العربي",
+    "Contact Info": "بيانات الاتصال",
+    "Need Any Help?": "هل تحتاج لمساعدة؟",
+    "Need Any Help": "هل تحتاج لمساعدة",
+    "Dubai": "دبي",
+    "United Arab Emirates": "الإمارات العربية المتحدة",
+    "Follow Us": "تابعنا على منصاتنا",
+    "Our Company": "شركتنا",
+    "Cookie Policy": "سياسة ملفات الارتباط",
+    "About Cosima": "عن كوزيما",
+    "Returns & Exchange": "المرتجعات والاستبدال",
+    "Shop Highlights": "مميزات المتجر",
+    "Skincare": "العناية بالبشرة",
+    "Serums & Oils": "السيروم والزيوت",
+    "Moisturizers": "المرطبات",
+    "Body & Bath": "الجسم والاستحمام",
+    "Fragrances": "العطور",
+    "Organic Supplements": "مكملات عضوية",
+    "Read Journal": "اقرأ مجلتنا",
+    "Latest trends and inspirations in beauty, skincare, and elegance": "أحدث الصيحات والإلهام في الجمال والعناية بالبشرة والأناقة",
+    "Holistic Wellness & Beauty": "الجمال والصحة المتكاملة",
+    "Finding Elegance: How Holistic Wellness Enhances Beauty": "البحث عن الأناقة: كيف تعزز الصحة المتكاملة الجمال",
+    "Continue Reading": "مواصلة القراءة",
+    "Summer Elegance: Minimalist Makeup Trends": "أناقة الصيف: صيحات المكياج البسيط",
+    "The Ultimate 5-Step Morning Skincare Routine": "روتين الصباح المثالي للعناية بالبشرة في 5 خطوات",
+    "Pure Skincare": "عناية نقية بالبشرة",
+    "Serums": "سيروم",
+    "SHOP MORE": "تسوق المزيد",
+    "Signature": "العطور الفاخرة",
+    "Perfumes": "عطور",
+    "Show All Products": "عرض جميع المنتجات",
+    "Home Spa & Wellness": "منتجات السبا والصحة المنزلية",
+    "Aromatic Candles": "شموع عطرية",
+    "BEAUTY": "الجمال",
+    "RESTORED": "المستعاد",
+    "Luxury Skincare & Wellness Collections": "مجموعات العناية بالبشرة والصحة الفاخرة",
+    "Experience Pure Elegance": "تجربتك الفريدة للأناقة النقية",
+    "Skincare Essentials": "أساسيات العناية بالبشرة",
+    "Oud Rose Eau de Parfum": "عطر عود روز للرجال والنساء",
+    "Jasmine Noir Body Mist": "رذاذ الجسم ياسمين نوار",
+    "Amber Wood Cologne": "كولونيا خشب العنبر الفاخر",
+    "Lavender Soy Candle": "شمعة الصويا العطرية باللافندر",
+    "Rose Bath Salt Set": "مجموعة أملاح الاستحمام بالورد",
+    "Essential Oil Diffuser": "موزع الزيوت العطرية الكهربائي",
+    "NIGHT CARE": "العناية الليلية",
+    "Retinol Night Repair": "كريم ريتينول لإصلاح البشرة الليلي",
+    "TONERS": "تونر البشرة",
+    "Hyaluronic Acid Toner": "تونر حمض الهيالورونيك المرطب",
+    "CLEANSERS": "منظفات البشرة",
+    "Gentle Foam Cleanser": "رغوة تنظيف البشرة اللطيفة",
+    "BODY MIST": "معطر الجسم",
+    "COLOGNE": "كولونيا",
+    "CANDLES": "شموع عطرية",
+    "BATH & BODY": "الاستحمام والجسم",
+    "WELLNESS": "الصحة والنشاط",
+    
+    // Additional exact matches from user feedback & screenshots
+    "Beauty,": "الجمال،",
+    "Restored": "المستعاد",
+    "Signature Perfumes": "عطورنا المميزة",
+    "Pure Skincare Serums": "سيروم العناية بالبشرة النقي",
+    "Latest trends and inspirations in beauty, skincare, and elegance.": "أحدث الصيحات والإلهام في الجمال والعناية بالبشرة والأناقة.",
+    "Contact us Anytime.": "اتصل بنا في أي وقت.",
+    "+971 50 123 4567": "\u200E+971 50 123 4567\u200E",
+    "Dubai,": "دبي،",
+    "Dubai, United Arab Emirates": "دبي، الإمارات العربية المتحدة",
+    "OUR STORE": "معرضنا",
+    "CONTACT INFO": "بيانات الاتصال",
+    "Telephone:": "الهاتف:",
+    "Email:": "البريد الإلكتروني:",
+    "BUSINESS HOURS": "ساعات العمل",
+    "Monday - Sunday:": "من الاثنين إلى الأحد:",
+    "09:00 am - 20:00 pm": "09:00 صباحاً - 08:00 مساءً",
+    "Have an question? Contact us!": "لديك سؤال؟ اتصل بنا!",
+    "Name": "الاسم",
+    "Subject": "الموضوع",
+    "Write your comment…": "اكتب تعليقك هنا…",
+    "View Cart": "عرض السلة",
+    "Shopping Cart": "سلة التسوق",
+    "Cart": "السلة",
+    "Returning Customer?": "هل أنت عميل سابق؟",
+    "Click here to login": "اضغط هنا لتسجيل الدخول",
+    "Have a coupon?": "هل لديك كوبون خصم؟",
+    "Click here to enter your code": "اضغط هنا لإدخال رمز الكوبون",
+    "If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing & Shipping section.": "إذا كنت قد تسوقت معنا من قبل، يرجى إدخال بياناتك في الحقول أدناه. أما إذا كنت عميلاً جديداً، يرجى الانتقال إلى قسم الفاتورة والشحن.",
+    "User Name or Email": "اسم المستخدم أو البريد الإلكتروني",
+    "Remember me": "تذكرني",
+    "Lost your password?": "هل نسيت كلمة المرور؟",
+    "Login": "تسجيل الدخول",
+    "Coupon Code": "كود الخصم",
+    "Street Address": "عنوان الشارع",
+    "Apartment, suite, unit etc. (optional)": "شقة، جناح، وحدة، إلخ (اختياري)",
+    "State / Country": "الولاية / الدولة",
+    "Postcode / ZIP": "الرمز البريدي",
+    "Create an account?": "إنشاء حساب؟",
+    "Ship to a Diffrent Address?": "الشحن لعنوان مختلف؟",
+    "Order Notes": "ملاحظات الطلب",
+    "Subtotal": "المجموع الفرعي",
+    "Check Payments": "الدفع بشيكات",
+    "Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.": "يرجى إرسال الشيك إلى: اسم المتجر، شارع المتجر، مدينة المتجر، ولاية المتجر، الرمز البريدي للمتجر.",
+    "Cash on Delivery": "الدفع عند الاستلام",
+    "Paypal": "بايبال",
+    "What is PayPal?": "ما هو بايبال؟",
+    "I have read and agree to the website": "لقد قرأت وأوافق على ",
+    "Your ultimate destination for luxury beauty, organic skincare, and holistic wellness.": "وجهتك النهائية للجمال الفاخر والعناية بالبشرة العضوية والصحة المتكاملة.",
+    "Categories": "الفئات",
+    "Pricing Filter": "تصفية السعر",
+    "Price: ": "السعر: ",
+    "Material": "المادة",
+    "Gold": "ذهب",
+    "Silver": "فضة",
+    "Bronze": "برونز",
+    "Colors": "الألوان",
+    "Sizes": "المقاسات",
+    "Collection": "المجموعة",
+    "Originals": "أصلي",
+    "Middle of North": "منتصف الشمال",
+    "Modern": "حديث",
+    "Add To Cart": "أضف إلى السلة",
+    "ADD TO CART": "أضف إلى السلة",
+    "BUY IT NOW": "اشتري الآن",
+    "Add to Wishlist": "أضف إلى المفضلة",
+    "Size Guide": "دليل المقاسات",
+    "SKU:": "رمز المنتج:",
+    "Category:": "الفئة:",
+    "Tags:": "الوسوم:",
+    "Share:": "مشاركة:",
+    "Description": "الوصف",
+    "Additional Information": "معلومات إضافية",
+    "Weight": "الوزن",
+    "Dimensions": "الأبعاد",
+    "Composition": "التركيب / المواد",
+    "Colour": "اللون",
+    "Size": "المقاس",
+    "by": "بواسطة",
+    "Add your Review": "أضف تقييمك",
+    "Your email address will not be published. Required fields are marked": "لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها بـ",
+    "Your Rating": "تقييمك",
+    "Your Review": "تقييمك الشخصي",
+    "Email Address": "عنوان البريد الإلكتروني",
+    "Submit Review": "إرسال التقييم"
   };
 
   // Translate a node recursively
   function translateNode(node) {
     if (node.nodeType === Node.TEXT_NODE) {
       const originalText = node.nodeValue;
-      const trimmed = originalText.trim();
-      if (trimmed && translations[trimmed]) {
-        // Keep spaces around the text
+      let trimmed = originalText.trim();
+      
+      if (!trimmed) return;
+
+      // 1. Direct dictionary match
+      if (translations[trimmed]) {
         const leadingSpace = originalText.match(/^\s*/)[0];
         const trailingSpace = originalText.match(/\s*$/)[0];
         node.nodeValue = leadingSpace + translations[trimmed] + trailingSpace;
+        return;
+      }
+
+      // 2. Dynamic pattern: "Your Cart (X)"
+      if (trimmed.startsWith("Your Cart (") && trimmed.endsWith(")")) {
+        const match = trimmed.match(/Your Cart \((\d+)\)/);
+        if (match) {
+          node.nodeValue = originalText.replace(match[0], `سلتك (${match[1]})`);
+          return;
+        }
+      }
+
+      // 3. Dynamic pattern: "QTY : X"
+      if (trimmed.toUpperCase().startsWith("QTY")) {
+        const match = trimmed.match(/QTY\s*:\s*(\d+)/i);
+        if (match) {
+          node.nodeValue = originalText.replace(match[0], `الكمية: ${match[1]}`);
+          return;
+        }
+      }
+
+      // 4. Dynamic pattern: Copyright
+      if (trimmed.includes("Copyright")) {
+        node.nodeValue = originalText.replace("Copyright", "حقوق النشر");
+        return;
+      }
+
+      // 5. Dynamic pattern: X Reviews For Y
+      if (trimmed.includes("Reviews For")) {
+        const match = trimmed.match(/(\d+)\s+Reviews\s+For\s+(.*)/i);
+        if (match) {
+          node.nodeValue = originalText.replace(match[0], `${match[1]} تقييمات لـ ${match[2]}`);
+          return;
+        }
+      }
+
+      // 6. Dynamic pattern: Reviews (X)
+      if (trimmed.startsWith("Reviews (") && trimmed.endsWith(")")) {
+        const match = trimmed.match(/Reviews \((\d+)\)/);
+        if (match) {
+          node.nodeValue = originalText.replace(match[0], `التقييمات (${match[1]})`);
+          return;
+        }
       }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
 
-      // Translate common attributes
-      const attrs = ['placeholder', 'title', 'alt'];
+      // Translate attributes (placeholder, title, alt, button value, aria-label)
+      const attrs = ['placeholder', 'title', 'alt', 'value', 'aria-label'];
       attrs.forEach(attr => {
         if (node.hasAttribute(attr)) {
           const val = node.getAttribute(attr).trim();
