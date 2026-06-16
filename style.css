@@ -3848,3 +3848,16 @@ main .br {
   display: block;
   margin-top: 50px;
 }
+
+/* Header Social Links */
+.phtbSocialLinks a {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.95rem;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  display: inline-block;
+  text-decoration: none;
+}
+.phtbSocialLinks a:hover {
+  color: #fff !important;
+  transform: scale(1.15);
+}
