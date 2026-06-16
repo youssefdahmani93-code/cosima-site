@@ -122,19 +122,135 @@
     });
   };
 
+  // Find country select dropdowns on the page
+  function findCountrySelects() {
+    const selects = document.querySelectorAll('select');
+    const countrySelects = [];
+    selects.forEach(select => {
+      const options = Array.from(select.options);
+      const hasGcc = options.some(opt => {
+        const text = opt.textContent.trim().toLowerCase();
+        return text === 'saudi arabia' || text === 'united arab emirates' || text === 'qatar';
+      });
+      if (hasGcc) {
+        countrySelects.push(select);
+      }
+    });
+    return countrySelects;
+  }
+
+  // Update currency and prices when a country changes
+  async function updateCurrencyForCountry(countryCode) {
+    try {
+      const response = await fetch('/api/currency?country=' + encodeURIComponent(countryCode));
+      if (response.ok) {
+        config = await response.json();
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(config));
+        
+        // Convert all prices on page
+        window.convertAllPrices();
+        
+        // Dispatch event for other listeners
+        const event = new CustomEvent('currencyChanged', { detail: config });
+        document.dispatchEvent(event);
+      }
+    } catch (e) {
+      console.error('Failed to update currency for country:', countryCode, e);
+    }
+  }
+
+  // Register change listeners on country selects
+  function setupCountrySelectListeners() {
+    const countrySelects = findCountrySelects();
+    countrySelects.forEach(select => {
+      // Avoid duplicate event listener
+      if (select.getAttribute('data-has-currency-listener')) return;
+      select.setAttribute('data-has-currency-listener', 'true');
+      
+      select.addEventListener('change', async function() {
+        const selectedOption = select.options[select.selectedIndex];
+        const text = selectedOption.textContent.trim();
+        const value = selectedOption.value ? selectedOption.value.trim() : '';
+        
+        let countryCode = '';
+        if (['SA', 'AE', 'QA', 'KW', 'BH', 'OM'].includes(value.toUpperCase())) {
+          countryCode = value.toUpperCase();
+        } else {
+          const nameMap = {
+            'saudi arabia': 'SA',
+            'united arab emirates': 'AE',
+            'qatar': 'QA',
+            'kuwait': 'KW',
+            'bahrain': 'BH',
+            'oman': 'OM'
+          };
+          countryCode = nameMap[text.toLowerCase()] || '';
+        }
+        
+        if (countryCode) {
+          await updateCurrencyForCountry(countryCode);
+        }
+      });
+    });
+  }
+
+  // Synchronize country selects to match the active configuration
+  function syncCountryDropdowns() {
+    if (!config || !config.country) return;
+    const countrySelects = findCountrySelects();
+    countrySelects.forEach(select => {
+      const countryCode = config.country.toUpperCase();
+      let matched = false;
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value.toUpperCase() === countryCode) {
+          select.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        const countryNames = {
+          'SA': 'Saudi Arabia',
+          'AE': 'United Arab Emirates',
+          'QA': 'Qatar',
+          'KW': 'Kuwait',
+          'BH': 'Bahrain',
+          'OM': 'Oman'
+        };
+        const targetName = countryNames[countryCode];
+        if (targetName) {
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].textContent.trim().toLowerCase() === targetName.toLowerCase()) {
+              select.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+    });
+  }
+
   // Initialize
   async function init() {
     await fetchConfig();
     window.convertAllPrices();
     
+    // Sync dropdowns to match country on load
+    syncCountryDropdowns();
+    
+    // Set up listeners for manual country change
+    setupCountrySelectListeners();
+    
     // Listen for custom events to trigger conversion (for dynamic content)
     document.addEventListener('productsLoaded', () => {
       window.convertAllPrices();
+      setupCountrySelectListeners();
     });
     
     // Setup observer to watch for dynamic DOM additions
     const observer = new MutationObserver(() => {
       window.convertAllPrices();
+      setupCountrySelectListeners();
     });
     observer.observe(document.body, { childList: true, subtree: true });
   }
