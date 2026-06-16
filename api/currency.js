@@ -10,6 +10,9 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // Cache response for 30 minutes in browser, 1 hour in CDN, and allow serving stale data up to 24 hours while revalidating
+  res.setHeader('Cache-Control', 'public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400');
+  res.setHeader('Vary', 'x-vercel-ip-country');
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -28,7 +31,11 @@ module.exports = async function handler(req, res) {
     country = req.query.country.toUpperCase();
   } else if ((!req.headers['x-vercel-ip-country'] || req.headers['x-vercel-ip-country'] === 'XX') && clientIp && clientIp !== '127.0.0.1' && clientIp !== '::1') {
     try {
-      const geoResponse = await fetch(`https://ipapi.co/${clientIp}/json/`);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1000); // 1 second timeout
+      const geoResponse = await fetch(`https://ipapi.co/${clientIp}/json/`, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      
       if (geoResponse.ok) {
         const geoData = await geoResponse.json();
         if (geoData.country_code) {
@@ -36,7 +43,7 @@ module.exports = async function handler(req, res) {
         }
       }
     } catch (e) {
-      console.warn('GeoIP fetch failed:', e.message);
+      console.warn('GeoIP fetch failed or timed out:', e.message);
     }
   }
 
@@ -66,7 +73,11 @@ module.exports = async function handler(req, res) {
   let rate = 1.0;
   if (currency !== 'USD') {
     try {
-      const rateResponse = await fetch('https://open.er-api.com/v6/latest/USD');
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5 seconds timeout
+      const rateResponse = await fetch('https://open.er-api.com/v6/latest/USD', { signal: controller.signal });
+      clearTimeout(timeoutId);
+
       if (rateResponse.ok) {
         const rateData = await rateResponse.json();
         if (rateData.rates && rateData.rates[currency]) {
@@ -74,7 +85,7 @@ module.exports = async function handler(req, res) {
         }
       }
     } catch (e) {
-      console.error('Exchange rate fetch failed:', e.message);
+      console.error('Exchange rate fetch failed or timed out:', e.message);
     }
   }
 

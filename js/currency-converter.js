@@ -1,6 +1,7 @@
 (function() {
-  // Config key for sessionStorage
-  const CACHE_KEY = 'store_currency_config';
+  // Config key for localStorage with TTL support
+  const CACHE_KEY = 'store_currency_config_v2';
+  const CACHE_TTL = 12 * 60 * 60 * 1000; // 12 hours
 
   // State
   let config = null;
@@ -11,21 +12,36 @@
     return urlParams.get(name);
   }
 
+  // Get cached configuration if valid
+  function getCachedConfig() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+      const parsed = JSON.parse(cached);
+      if (parsed && parsed.timestamp && (Date.now() - parsed.timestamp < CACHE_TTL)) {
+        return parsed.data;
+      }
+    } catch (e) {
+      console.warn('Failed to parse cached currency config:', e);
+    }
+    return null;
+  }
+
+  // Save configuration to cache
+  function setCachedConfig(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        timestamp: Date.now(),
+        data: data
+      }));
+    } catch (e) {
+      console.warn('Failed to cache currency config:', e);
+    }
+  }
+
   // Fetch currency configuration
   async function fetchConfig() {
-    // Check URL override first
     const urlCountry = getQueryParam('country');
-    
-    // Check cache
-    const cached = sessionStorage.getItem(CACHE_KEY);
-    if (cached && !urlCountry) {
-      try {
-        config = JSON.parse(cached);
-        return config;
-      } catch (e) {
-        console.warn('Failed to parse cached currency config:', e);
-      }
-    }
 
     // Call API
     try {
@@ -36,24 +52,16 @@
       
       const response = await fetch(url);
       if (response.ok) {
-        config = await response.json();
+        const freshConfig = await response.json();
         // Save to cache
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(config));
-        return config;
+        setCachedConfig(freshConfig);
+        return freshConfig;
       }
     } catch (e) {
       console.error('Failed to fetch currency config:', e);
     }
 
-    // Default fallback
-    config = {
-      success: true,
-      country: 'US',
-      currency: 'USD',
-      symbol: '$',
-      rate: 1.0
-    };
-    return config;
+    return null;
   }
 
   // Format amount from USD
@@ -145,7 +153,7 @@
       const response = await fetch('/api/currency?country=' + encodeURIComponent(countryCode));
       if (response.ok) {
         config = await response.json();
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(config));
+        setCachedConfig(config);
         
         // Convert all prices on page
         window.convertAllPrices();
@@ -232,14 +240,45 @@
 
   // Initialize
   async function init() {
-    await fetchConfig();
+    const urlCountry = getQueryParam('country');
+    const cached = urlCountry ? null : getCachedConfig();
+    
+    if (cached) {
+      config = cached;
+    } else {
+      config = {
+        success: true,
+        country: 'US',
+        currency: 'USD',
+        symbol: '$',
+        rate: 1.0
+      };
+    }
+    
+    // Apply cached or default config immediately
     window.convertAllPrices();
-    
-    // Sync dropdowns to match country on load
     syncCountryDropdowns();
-    
-    // Set up listeners for manual country change
     setupCountrySelectListeners();
+    
+    // Fetch fresh config in background
+    fetchConfig().then(freshConfig => {
+      if (freshConfig) {
+        // Only update UI if the fresh config actually changed the currency or the rate has changed significantly
+        const hasChanged = !config || 
+                           freshConfig.currency !== config.currency || 
+                           Math.abs(freshConfig.rate - config.rate) > 0.001 ||
+                           freshConfig.country !== config.country;
+        if (hasChanged) {
+          config = freshConfig;
+          window.convertAllPrices();
+          syncCountryDropdowns();
+          
+          // Dispatch event for other listeners
+          const event = new CustomEvent('currencyChanged', { detail: config });
+          document.dispatchEvent(event);
+        }
+      }
+    });
     
     // Listen for custom events to trigger conversion (for dynamic content)
     document.addEventListener('productsLoaded', () => {

@@ -36,6 +36,11 @@ const fallbackProducts = [
   }
 ];
 
+// In-memory cache for Google Sheets products
+let cachedProducts = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 module.exports = async function handler(req, res) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -51,15 +56,28 @@ module.exports = async function handler(req, res) {
   // 1. Try Google Sheets
   try {
     if (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY && process.env.GOOGLE_SHEET_ID) {
-      let products = await getProductsFromSheet();
+      const now = Date.now();
+      let products;
+      let isFromCache = false;
+
+      if (cachedProducts && (now - cacheTimestamp < CACHE_TTL)) {
+        products = cachedProducts;
+        isFromCache = true;
+      } else {
+        products = await getProductsFromSheet();
+        cachedProducts = products;
+        cacheTimestamp = now;
+      }
+
+      let resultProducts = products;
       if (category) {
-        products = products.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+        resultProducts = products.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
       }
       return res.status(200).json({
         success: true,
-        source: 'google-sheets',
-        products: products,
-        count: products.length
+        source: isFromCache ? 'google-sheets-cache' : 'google-sheets',
+        products: resultProducts,
+        count: resultProducts.length
       });
     }
   } catch (sheetError) {
