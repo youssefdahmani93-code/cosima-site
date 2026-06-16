@@ -13,6 +13,7 @@
 	<script src="js/popper.js" defer></script>
 	<script src="js/bootstrap.js" defer></script>
 	<script src="js/custom.js" defer></script>
+	<script src="js/currency-converter.js" defer></script>
 </head>
 <body>
 	<div id="pageWrapper">
@@ -744,12 +745,22 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const tbPrices = document.querySelectorAll('.tb-price');
       tbPrices.forEach(el => {
-        el.textContent = '£' + parseFloat(product.price).toFixed(2);
+        el.setAttribute('data-price-usd', product.price);
+        if (window.formatPrice) {
+          el.textContent = window.formatPrice(product.price);
+        } else {
+          el.textContent = '£' + parseFloat(product.price).toFixed(2);
+        }
       });
       
       const totalHeader = document.querySelector('strong.Hprice');
       if (totalHeader) {
-        totalHeader.textContent = '£' + parseFloat(product.price).toFixed(2);
+        totalHeader.setAttribute('data-price-usd', product.price);
+        if (window.formatPrice) {
+          totalHeader.textContent = window.formatPrice(product.price);
+        } else {
+          totalHeader.textContent = '£' + parseFloat(product.price).toFixed(2);
+        }
       }
     } catch (e) {
       console.error('Error loading selected product:', e);
@@ -784,8 +795,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Get product info from the order summary
       const productName = document.querySelector('.tb-heading')?.textContent?.trim() || 'Unknown Product';
-      const productPrice = document.querySelector('.tb-price')?.textContent?.replace(/[^0-9.]/g, '') || '0';
       const productQty = document.querySelector('.textQty')?.textContent?.replace(/[^0-9]/g, '') || '1';
+      
+      // Calculate local and USD prices based on currency configuration
+      const currencyConfig = window.getCurrencyConfig ? window.getCurrencyConfig() : { currency: 'USD', rate: 1.0 };
+      const selectedProductStr = sessionStorage.getItem('last_ordered_product');
+      let baseUsdPrice = 0;
+      if (selectedProductStr) {
+        try {
+          baseUsdPrice = parseFloat(JSON.parse(selectedProductStr).price);
+        } catch(e) {}
+      }
+      if (!baseUsdPrice) {
+        const rawPrice = document.querySelector('.tb-price')?.getAttribute('data-price-usd') || 
+                         document.querySelector('.tb-price')?.textContent?.replace(/[^0-9.]/g, '') || '0';
+        baseUsdPrice = parseFloat(rawPrice);
+      }
+      
+      const localPrice = baseUsdPrice * currencyConfig.rate;
 
       // Disable button and show loading
       placeOrderBtn.disabled = true;
@@ -798,7 +825,9 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({
             sku: selectedSku,
             product_name: productName,
-            price: parseFloat(productPrice),
+            price: localPrice,
+            currency: currencyConfig.currency,
+            price_usd: baseUsdPrice,
             quantity: parseInt(productQty),
             customer_name: firstName + ' ' + lastName,
             customer_email: email,

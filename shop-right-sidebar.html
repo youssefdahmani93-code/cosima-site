@@ -13,6 +13,7 @@
     <script src="js/popper.js" defer></script>
     <script src="js/bootstrap.js" defer></script>
     <script src="js/custom.js" defer></script>
+    <script src="js/currency-converter.js" defer></script>
 </head>
 <body>
     <div id="pageWrapper">
@@ -803,13 +804,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     <a href="shop-accordion.html" class="text-decoration-none">${product.name}</a>
                 </h3>
                 <h4 class="fw-normal pcPrice mb-0">
-                    <span class="regPrice">£${parseFloat(product.price).toFixed(2)}</span>
+                    <span class="regPrice" data-price-usd="${product.price}">$${parseFloat(product.price).toFixed(2)}</span>
                 </h4>
                 <button class="pcBtnSubmit position-absolute fw-medium p-0 border-0" onclick="handleAddToCart('${product.sku}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image_url}')">ADD TO CART</button>
             </article>
           `;
           container.appendChild(col);
         });
+        document.dispatchEvent(new CustomEvent('productsLoaded'));
       } else {
         container.innerHTML = `
           <div class="col-12 text-center py-5">

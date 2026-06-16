@@ -34,6 +34,8 @@ module.exports = async function handler(req, res) {
         sku VARCHAR(50),
         product_name VARCHAR(255) NOT NULL,
         price DECIMAL(10, 2) NOT NULL,
+        currency VARCHAR(10) DEFAULT 'USD',
+        price_usd DECIMAL(10, 2) DEFAULT 0.00,
         quantity INTEGER NOT NULL DEFAULT 1,
         customer_name VARCHAR(255) NOT NULL,
         customer_email VARCHAR(255) NOT NULL,
@@ -43,6 +45,13 @@ module.exports = async function handler(req, res) {
         notes TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+
+    // Alter orders table to add columns if they don't exist (migration)
+    await client.query(`
+      ALTER TABLE orders 
+      ADD COLUMN IF NOT EXISTS currency VARCHAR(10) DEFAULT 'USD',
+      ADD COLUMN IF NOT EXISTS price_usd DECIMAL(10, 2) DEFAULT 0.00;
     `);
 
     // Insert some sample products

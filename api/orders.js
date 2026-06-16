@@ -37,6 +37,8 @@ module.exports = async function handler(req, res) {
         sku,
         product_name,
         price,
+        currency,
+        price_usd,
         quantity,
         customer_name,
         customer_email,
@@ -56,13 +58,15 @@ module.exports = async function handler(req, res) {
       const client = await pool.connect();
 
       const result = await client.query(
-        `INSERT INTO orders (sku, product_name, price, quantity, customer_name, customer_email, customer_phone, shipping_address, notes, status)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'pending')
+        `INSERT INTO orders (sku, product_name, price, currency, price_usd, quantity, customer_name, customer_email, customer_phone, shipping_address, notes, status)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'pending')
          RETURNING *`,
         [
           sku || '',
           product_name,
           parseFloat(price),
+          currency || 'USD',
+          parseFloat(price_usd !== undefined ? price_usd : price),
           parseInt(quantity) || 1,
           customer_name,
           customer_email,
