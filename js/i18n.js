@@ -19,6 +19,7 @@
 
   // Translation Dictionary
   const translations = {
+    "Dubai, UAE": "دبي، الإمارات العربية المتحدة",
     "Need help? Call us:": "هل تحتاج إلى مساعدة؟ اتصل بنا:",
     "Special Offer": "عرض خاص",
     "Services": "الخدمات",
@@ -1241,7 +1242,9 @@
     // 1. Update button texts to match current language
     const langButtons = document.querySelectorAll('.phtbLanguageDropdown button');
     langButtons.forEach(btn => {
-      btn.textContent = lang === 'ar' ? 'Ara' : 'Eng';
+      const flagUrl = lang === 'ar' ? 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/sa.svg' : 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/us.svg';
+      const langText = lang === 'ar' ? 'Ara' : 'Eng';
+      btn.innerHTML = `<img src="${flagUrl}" alt="" class="me-1" style="width: 16px; height: auto; vertical-align: middle; margin-top: -2px;"> ${langText}`;
     });
 
     // 2. Setup click listeners on dropdown items
